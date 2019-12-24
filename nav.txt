@@ -1,0 +1,8 @@
+#Remove Reporting demo from offline distribution
+MVC6_JSON = MVC_6_DEMOS_WWWROOT + 'shared/' + 'nav.json'
+jsonHash = File.read(MVC6_JSON)
+parsed_data = JSON.parse(jsonHash)
+result = parsed_data.delete_if do |data|
+  data['items'].detect { |items| items['text'] == 'Drill-Down Grid Report' }
+end
+File.write(MVC6_JSON, JSON.pretty_generate(result))
